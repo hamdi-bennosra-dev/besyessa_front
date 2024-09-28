@@ -1,0 +1,221 @@
+<nav
+  class="navbar navbar-expand-lg position-fixed w-100"
+  [class]="isScroll ? 'py-0 shadow' : 'py-3'"
+>
+
+<!-- Image upload -->
+
+<ul
+        class="user-info d-flex text-black p-1 mb-lg-0 mx-2 rounded-3 navbar-nav align-items-center position-relative"
+      >
+        <div class="photo d-none d-lg-flex">
+          <label class="hoverable" for="fileInput">
+            <img
+              class="w-200 rounded-3"
+              [src]="urlImage | userImage : avatar"
+            />
+            <div class="background position-absolute rounded-3"></div>
+          </label>
+          <br />
+          <input id="fileInput" type="file" (change)="uploadImgeUser($event)" />
+        </div>
+
+        <li
+          (click)="toggleShow()"
+          class="username p-0 fw-bold text-white position-relative"
+        >
+          {{ userName }}
+        </li>
+        <ul
+          *ngIf="isClick"
+          #settings
+          class="settings mi-h-200 navbar-nav position-absolute flex-column g-2 p-2 bg-body-secondary rounded"
+        >
+          <li
+            routerLink="/settings"
+            class="nav-item d-flex align-items-center justify-content-between mb-2 bg-main rounded p-1 hover-anchor"
+          >
+            <a class="nav-link px-2 text-capitalize fw-medium text-white"
+              >settings
+            </a>
+            <i class="fa-solid fa-gear fa-xl text-white"></i>
+          </li>
+          <li
+            (click)="sinOut()"
+            class="nav-item d-flex align-items-center p-1 justify-content-between mb-2 bg-main rounded hover-anchor"
+            role="button"
+          >
+            <a
+              class="nav-link px-2 text-capitalize fw-medium text-white"
+              aria-current="page"
+              >sinOut
+            </a>
+            <i
+              class="fa-solid fa-arrow-right-from-bracket text-white fa-xl"
+            ></i>
+          </li>
+        </ul>
+      </ul>
+<!-- ----------------------------->
+      
+
+<!-- ----------------------------->
+  <div class="container justify-content-end">
+
+    <!-- List Min Icons In col-md -->
+    
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse my-2" id="navbarSupportedContent">
+
+
+
+      <!-- List Min Icons In col-lg -->
+      <ul
+        class="d-none d-lg-flex flex-md-row main-icons navbar-nav ms-auto mb-2 mb-lg-0 align-items-center flex-row"
+      >
+        <li class="nav-item" routerLink="/allorders" role="button">
+          <a class="nav-link px-2 position-relative" aria-current="page">
+            <i class="fa-solid fa-truck fa-2x text-main"></i>
+
+            <span
+              class="badge bg-danger position-absolute top-0 end-0 rounded-2"
+              >{{ orderCount }}</span
+            >
+          </a>
+        </li>
+        <li class="nav-item" routerLink="/wishlist" role="button">
+          <a class="nav-link px-2 position-relative" aria-current="page">
+            <i class="fa-regular fa-heart fa-2x text-main"></i>
+            <span
+              class="badge bg-danger position-absolute top-0 end-0 rounded-2"
+              >{{ wishListCount }}</span
+            >
+          </a>
+        </li>
+
+        <li class="nav-item overflow-hidden" routerLink="/cart" role="button">
+          <a
+            #cartIcon
+            class="nav-link px-2 position-relative"
+            aria-current="page"
+          >
+            <i class="fa-solid fa-cart-shopping fa-2x text-main"></i>
+            <span
+              class="badge bg-danger position-absolute top-0 end-0 rounded-2"
+              >{{ itemCount }}</span
+            >
+          </a>
+        </li>
+      </ul>
+
+      <!-- List Alternate Icons In col-md  LINKEDIN -->
+<ul
+class="alt-icons d-flex flex-row d-lg-none d-xl-flex navbar-nav ms-auto mb-2 mb-lg-0 align-items-center justify-content-center"
+>
+<li *ngFor="let icon of allIcons" class="px-1 nav-item">
+  <a class="nav-link px-1 fa-xl" aria-current="page"
+    ><i [class]="icon"></i
+  ></a>
+</li>
+</ul>
+      
+
+      <!-- List Anchor -->
+
+      <ul class="links-page navbar-nav me-auto mb-2 mb-lg-0 gap-1">
+            
+        <li class="nav-item d-flex align-items-center position-relative gap-1">
+          <a
+            class="nav-link px-2 text-capitalize"
+            aria-current="page"
+            routerLinkActive="active-link"
+            routerLink="categories"
+          >
+            النّوع
+          </a>
+          <span
+            (click)="getCategoriesUl()"
+            role="button"
+            class="arrowCateg bg-main p-2 rounded text-white overflow-hidden"
+          >
+            <i class="fa-solid fa-caret-down down-bottom"></i>
+          </span>
+          <ul
+            #categoriesLinks
+            class="categoriesLinks d-none navbar-nav position-absolute flex-column w-100 g-2 px-1 py-2"
+          >
+            <li class="nav-item text-center bg-main rounded mb-3">
+              <a class="nav-link px-2 text-capitalize fw-medium text-white"
+                >كل الأنواع
+              </a>
+            </li>
+            <li
+              (click)="subCategorie(category._id)"
+              *ngFor="let category of ulCategories"
+              class="nav-item d-flex align-items-center justify-content-between mb-2"
+              role="button"
+              [routerLink]="['specificCategory', category._id, category.name]"
+            >
+              <a class="nav-link px-2 text-capitalize" aria-current="page"
+                >{{ category.name }}
+              </a>
+              <img class="w-15" [src]="category.image" [alt]="category.name" />
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link px-2 text-capitalize"
+            aria-current="page"
+            routerLinkActive="active-link"
+            routerLink="brands"
+            >العلامات التجارية
+          </a>
+        </li>
+        
+        <li class="nav-item">
+          <a
+            class="nav-link px-2 text-capitalize"
+            aria-current="page"
+            routerLinkActive="active-link"
+            routerLink="products"
+          >
+            منتجاتنا
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a
+            class="nav-link px-2 text-capitalize"
+            aria-current="page"
+            routerLinkActive="active-link"
+            routerLink="home"
+            fragment="productsHome"
+            >البوّابة</a
+          >
+        </li>
+      </ul>
+
+
+      
+
+      <!--User Image && UserName -->
+      
+    </div>
+
+    <a class="navbar-brand mx-sm-0 mb-2 me-0" routerLink="/home">
+      <img src="./assets/images/Capture.PNG" alt="" />
+    </a>
+  </div>
+</nav>

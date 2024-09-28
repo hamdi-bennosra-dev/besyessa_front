@@ -1,0 +1,114 @@
+nav {
+  z-index: 999999;
+  background-color: var(--mat-select-panel-background-color);
+  transition: all 0.5s;
+}
+
+.badge {
+  background-color: var(--main-color);
+}
+.user-info img {
+  height: 100%;
+  width: 100%;
+  border-radius: 50%;
+}
+.user-info .hoverable {
+  position: relative;
+  display: block;
+  cursor: pointer;
+  height: 55px;
+  width: 55px;
+}
+.user-info .hoverable .hover-text {
+  position: absolute;
+  display: none;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+}
+.hoverable .background {
+  position: absolute;
+  display: none;
+  inset: 0;
+  background-color: rgba(255, 255, 255, 0.5);
+  pointer-events: none;
+  z-index: 1;
+}
+.user-info .hoverable:hover .hover-text {
+  display: block;
+}
+.user-info .hoverable:hover .background {
+  display: block;
+}
+
+.user-info #fileInput {
+  display: none;
+}
+.user-info {
+  cursor: pointer;
+  background-color: var(--main-color);
+}
+.user-info::before {
+  content: "";
+  position: absolute;
+  border: 10px solid;
+  border-color: var(--main-color) transparent transparent transparent;
+  bottom: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 99999;
+}
+.hover-anchor {
+  transition: all 0.5s;
+}
+
+.hover-anchor:hover {
+  padding-left: 20px !important;
+  padding-right: 20px !important;
+}
+/* categories Links */
+.categoriesLinks {
+  min-width: 200px;
+  right: 0;
+  bottom: 0;
+  transform: translate(50%, 100%);
+  z-index: 9999;
+  background-color: #f1f1f1;
+}
+.categoriesLinks li {
+  transition: all 0.5s;
+}
+.categoriesLinks li:hover {
+  background-color: var(--main-color);
+  color: white;
+}
+.categoriesLinks li:hover a {
+  color: white;
+}
+.categoriesLinks .w-15 {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+.arrowCateg {
+  transition: 0.3s;
+}
+.arrowCateg i {
+  animation: bouncingLaing 2s infinite;
+}
+.goCartAnimations {
+  animation: goAheadCart 2s linear alternate-reverse;
+}
+.navbar-toggler {
+  color: var(--main-color);
+}
+
+/* Settings User */
+.settings {
+  right: 0;
+  bottom: -130px;
+  min-width: 200px;
+  left: 50%;
+  transform: translateX(-50%);
+}

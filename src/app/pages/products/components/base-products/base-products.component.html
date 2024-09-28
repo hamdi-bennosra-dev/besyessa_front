@@ -1,0 +1,93 @@
+<div #allItems class="row gy-5">
+  <div
+    [ngClass]="{'col-lg-4 ': col_4,'col-lg-3 ': col_3, }"
+    class="col-md-6 overflow-hidden item position-relative"
+    *ngFor="
+      let item of allProducts
+        | categories : selectedCategoryName
+        | brand : selectedOption
+        | starts : ratingNumber
+        | search : inputSearch
+        | price : priceRange
+        | sort : sortBy
+        | paginate
+          : {
+              id: 'productPaginations',
+              itemsPerPage: pageSize,
+              currentPage: currentPage,
+              totalItems: totalItems
+            };
+      count as count
+    "
+  >
+    <div
+      class="offer-item bg-main position-absolute d-flex justify-content-center align-items-center fw-bold"
+    >
+      <span> -{{ item.offer }}% </span>
+    </div>
+    <div class="position-relative overflow-hidden item-Products">
+      <figure class="rounded-3 baseSlideItem">
+        <img
+          role="button"
+          class="w-100 mb-3 img-thumbnail rounded-3"
+          height="200"
+          [src]="item.imageCover"
+          [routerLink]="['/details', item._id]"
+        />
+      </figure>
+      <i
+        role="button"
+        *ngIf="!wishListData.includes($any(item._id))"
+        (click)="addFavourite(item._id)"
+        class="fa-regular fa-heart fa-3x heart text-main"
+      ></i>
+      <i
+        role="button"
+        *ngIf="wishListData.includes($any(item._id))"
+        (click)="removeFavourite(item._id)"
+        class="fa-solid fa-heart fa-3x heart-added text-main"
+      ></i>
+      <div class="foooter-info p-2 rounded">
+        <h3 class="text-main">
+          {{ item.category.name }}
+        </h3>
+        <h4 class="h6">
+          {{ item.title.split(" ").splice(0, 2).join(" ") }}
+        </h4>
+        <div
+          class="rating-price d-flex justify-content-between align-items-center"
+        >
+          <span>{{ item.price | currency : "EG" }} </span>
+          <div class="rating">
+            <span>
+              <i
+                [ngClass]="{
+                  'rating-color': item.ratingsAverage >= star
+                }"
+                class="fas fa-star fa-star"
+                *ngFor="let star of [1, 2, 3, 4, 5]"
+              ></i>
+              {{ item.ratingsAverage }}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <app-btncart
+      class="w-100"
+      #componentBtn
+      (click)="addProduct(item._id, componentBtn)"
+      [text]="'add to cart'"
+      [fullWidth]="true"
+      [bgMain]="true"
+      [loderBgMain]="true"
+    ></app-btncart>
+  </div>
+</div>
+<app-emptycart
+  [title]="
+    'We\'re sorry, but the product you\'re looking for is currently unavailable'
+  "
+  *ngIf="productLength === 0"
+></app-emptycart>
