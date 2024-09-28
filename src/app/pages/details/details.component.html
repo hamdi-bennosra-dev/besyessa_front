@@ -1,0 +1,100 @@
+<section class="w-75 mx-auto">
+  <div class="row align-item-center justify-content-center">
+    <!-- <button class="btn__prev btn btn-main align-self-end">prev</button> -->
+    <div @slidLeft class="col-lg-4 mb-5">
+      <figure [@slide]="animationState">
+        <img class="w-100" [src]="activeImage" [alt]="productDetails.title" />
+      </figure>
+      <div class="row">
+        <figure
+          class="baseSlideItem g-2 rounded"
+          #allIMages
+          (click)="toggleAnimationState()"
+          [ngClass]="getDinamicCols()"
+          *ngFor="let imge of productDetails.images"
+        >
+          <img
+            role="button"
+            class="w-100 rounded"
+            [src]="imge"
+            (click)="selectImage(imge)"
+          />
+        </figure>
+      </div>
+    </div>
+    <div
+      @slidRight
+      class="col-lg-6 offset-1 d-flex flex-column justify-content-between"
+    >
+      <div>
+        <div class="footer-item d-flex justify-content-between mb-2">
+          <h3 class="mat-headline-6">{{ productDetails.brand.name }}</h3>
+          <span
+            ><i class="rating-color fas fa-star"> </i>
+            {{ productDetails.ratingsAverage }}</span
+          >
+        </div>
+        <div
+          class="allprice d-flex justify-content-between align-items-center mb-2"
+        >
+          <del class="text-danger mat-headline-6"
+            >{{ productDetails.price }} EGP</del
+          >
+
+          <span class="mat-headline-6">{{ offer }} </span>
+        </div>
+        <h3 class="mat-subtitle-1 mb-2">{{ productDetails.title }}</h3>
+        <p class="text-muted mb-2">{{ productDetails.description }}</p>
+        <h4 class="h6 mb-2">{{ productDetails.category.name }}</h4>
+        <div
+          class="date d-flex justify-content-between align-items-center mb-2"
+        >
+          <span class="mat-subtitle-1">create at</span>
+          <span class="mat-subtitle-1">
+            {{ productDetails.createdAt | date }}
+          </span>
+        </div>
+        <div
+          class="date d-flex justify-content-between align-items-center mb-2"
+        >
+          <span class="mat-subtitle-1 text-capitalize">last update</span>
+          <span class="mat-subtitle-1 text-capitalize">
+            {{ productDetails.updatedAt | date }}
+          </span>
+        </div>
+        <figure class="me-auto w-50">
+          <img
+            class="w-100"
+            [src]="productDetails.brand.image"
+            [alt]="productDetails.brand.name"
+          />
+        </figure>
+      </div>
+
+      <app-btncart
+        (click)="addProduct(productDetails._id)"
+        [isLoding]="isLoding"
+        text="add to Cart"
+        [fullWidth]="true"
+        [bgMain]="true"
+        [loderBgMain]="true"
+      ></app-btncart>
+    </div>
+  </div>
+  <div
+    class="py-4 navigate d-flex justify-content-between gap-5 align-items-center"
+  >
+    <button
+      (click)="prev()"
+      class="btn__prev btn btn-main text-white align-self-end text-capitalize"
+    >
+      prev
+    </button>
+    <button
+      (click)="next()"
+      class="btn__prev btn btn-main text-white align-self-end text-capitalize"
+    >
+      next
+    </button>
+  </div>
+</section>

@@ -1,0 +1,140 @@
+<section>
+  <h1 class="mat-headline-3 mb-0 text-capitalize py-5">Login in</h1>
+  <form [@streatch] (ngSubmit)="submit()" [formGroup]="loginForm">
+    <!-- user email -->
+    <div class="form-floating mb-3">
+      <input
+        type="text"
+        class="form-control shadow-0"
+        id="floatingInput"
+        placeholder="name"
+        [ngClass]="{
+          'is-valid': !f['username']?.errors,
+          'is-invalid': f['username']?.errors && f['username']?.touched
+        }"
+        formControlName="username"
+      />
+      <label for="floatingInput">Name</label>
+      <div *ngIf="f['username']?.dirty" class="errorGroupe my-3">
+        <p *ngIf="f['username']?.getError('required')" class="alert alert-danger">
+          Your name is required
+        </p>
+        <p *ngIf="f['username']?.getError('maxlength')" class="alert alert-danger">
+          Username must be at least 100 characters long
+        </p>
+        <p *ngIf="f['username']?.getError('minlength')" class="alert alert-danger">
+          Username must be at least 3 characters long
+        </p>
+      </div>
+    </div>
+
+    <!-- user password -->
+    <div class="form-floating mb-3">
+      <input
+        type="password"
+        class="form-control shadow-0"
+        id="floatingInputPassword"
+        placeholder="Password"
+        [ngClass]="{
+          'is-valid': !f['password']?.errors,
+          'is-invalid': f['password']?.errors && f['password']?.touched
+        }"
+        formControlName="password"
+      />
+      <label for="floatingInputPassword">Password</label>
+      <div *ngIf="f['password']?.dirty" class="errorGroupe my-3">
+        <p *ngIf="f['password']?.getError('required')" class="alert alert-danger">
+          Your password is required
+        </p>
+        <p *ngIf="f['password']?.getError('pattern')" class="alert alert-danger">
+          Password must start with an uppercase letter, followed by 6 to 20 lowercase letters or digits.
+        </p>
+      </div>
+    </div>
+    
+    <a class="text-main fw-bold d-block" [routerLink]="['/forgetpassword']">
+      Forget Password?
+    </a>
+    
+    <app-btncart
+      [formValid]="loginForm.valid"
+      
+      [text]="'login'"
+      [bgMain]="true"
+      [loderBgMain]="true"
+    ></app-btncart>
+  </form>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+<!-- <section>
+  <h1 class="mat-headline-3 mb-0 text-capitalize py-5">Login in</h1>
+  <form [@streatch] (ngSubmit)="signIn(loginForm)" [formGroup]="loginForm"> -->
+    <!-- user email -->
+    <!-- <div class="form-floating mb-3">
+      <input
+        type="email"
+        class="form-control shadow-0"
+        id="floatingInputemail"
+        placeholder=" email"
+        [ngClass]="{
+          'is-valid': !email.errors,
+          'is-invalid': email.errors && email.touched
+        }"
+        formControlName="email"
+      />
+      <label for="floatingInputemail"> email</label>
+      <div *ngIf="email.dirty" class="errorGroupe my-3">
+        <p *ngIf="email.getError('required')" class="alert alert-danger">
+          your email is required
+        </p>
+        <p *ngIf="email.getError('email')" class="alert alert-danger">
+          your email not valid
+        </p>
+      </div>
+    </div> -->
+
+    <!-- user password -->
+    <!-- <div class="form-floating mb-3">
+      <input
+        type="password"
+        class="form-control shadow-0"
+        id="floatingInputPassword"
+        placeholder="Password"
+        [ngClass]="{
+          'is-valid': !password.errors,
+          'is-invalid': password.errors && password.touched
+        }"
+        formControlName="password"
+      />
+      <label for="floatingInputpassword"> password</label>
+      <div *ngIf="password.dirty" class="errorGroupe my-3">
+        <p *ngIf="password.getError('required')" class="alert alert-danger">
+          your password is required
+        </p>
+        <p *ngIf="password.getError('pattern')" class="alert alert-danger">
+          your password not valid
+        </p>
+      </div>
+    </div>
+    <a class="text-main fw-bold d-block" [routerLink]="['/forgetpassword']"
+      >forget Password ?</a
+    >
+    <app-btncart
+      [formValid]="loginForm.valid"
+      [isLoding]="isLoding"
+      [text]="'login'"
+      [bgMain]="true"
+      [loderBgMain]="true"
+    ></app-btncart>
+  </form>
+</section> -->

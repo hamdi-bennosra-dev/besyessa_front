@@ -1,0 +1,9 @@
+.allorders {
+  background-color: var(--light-color);
+}
+.arrow-detals {
+  transition: 0.3s;
+}
+.arrow-detals i {
+  animation: bouncingLaingLeftRight 1.5s infinite;
+}

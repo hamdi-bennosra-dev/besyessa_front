@@ -1,0 +1,75 @@
+<section class="py-5">
+  <div class="container-xl px-4 mt-4">
+    <!-- Account page navigation-->
+    <nav class="nav nav-borders text-main text-capitalize">
+      <a
+        [ngClass]="{ selectActive: account }"
+        (click)="toggleLinks('account')"
+        class="text-main nav-link active ms-0 fw-medium text-capitalize selectActive"
+        >account settings</a
+      >
+      <a
+        [ngClass]="{ selectActive: security }"
+        (click)="toggleLinks('security')"
+        class="text-main nav-link fw-medium text-capitalize"
+        >Security settings</a
+      >
+
+      <a
+        [ngClass]="{ selectActive: addresse }"
+        (click)="toggleLinks('addresse')"
+        class="text-main nav-link fw-medium text-capitalize"
+        >addresse settings</a
+      >
+    </nav>
+    <hr class="mt-0 mb-4" />
+    <div class="row">
+      <div class="col-xl-4">
+        <!-- Profile picture card-->
+        <div class="card mb-4 mb-xl-0">
+          <div class="card-header fw-medium">Profile Picture</div>
+          <div class="card-body text-center">
+            <!-- Profile picture image-->
+            <div class="photo d-none d-lg-flex">
+              <img
+                class="w-100 rounded-3"
+                [src]="
+                  defultImage
+                    ? defultImage
+                    : 'https://www.w3schools.com/howto/img_avatar.png'
+                "
+              />
+              <div class="background position-absolute rounded-3"></div>
+              <br />
+            </div>
+            <!-- Profile picture help block-->
+            <div class="small font-italic text-muted mb-4">
+              JPG or PNG no larger than 5 MB
+            </div>
+            <!-- Profile picture upload button-->
+            <button
+              class="btn btn-main w-100 text-white"
+              (click)="selectImage()"
+            >
+              Choose Image
+            </button>
+            <input
+              type="file"
+              #fileInput
+              class="d-none"
+              (change)="uploadImage($event)"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-8">
+        <!-- Account -->
+        <app-account *ngIf="account"></app-account>
+        <!-- security -->
+        <app-security *ngIf="security"> </app-security>
+        <!-- adresse -->
+        <app-addresse *ngIf="addresse"></app-addresse>
+      </div>
+    </div>
+  </div>
+</section>

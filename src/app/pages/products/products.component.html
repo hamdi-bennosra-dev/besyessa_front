@@ -1,0 +1,147 @@
+<section class="products">
+  <h1 class="baseTitle mb-4">all Popular Products</h1>
+
+  <div class="row g-2 justify-content-around">
+    <div class="col-lg-3 col-md-4">
+      <div class="fixed-side">
+        <input
+          class="form-control mb-3"
+          [(ngModel)]="inputSearch"
+          type="text"
+          placeholder="Search"
+        />
+        <div class="category mb-3">
+          <h3 class="mat-h2 text-capitalize">category</h3>
+          <ul
+            #categories
+            class="navbar-nav categories"
+            (click)="filterCategory((selectedCategoryName = $event.target))"
+          >
+            <li class="nav-item text-capitalize" role="button">
+              <a class="nav-link selectActive">all</a>
+            </li>
+            <li class="nav-item text-capitalize" role="button">
+              <a class="nav-link">Women's Fashion</a>
+            </li>
+            <li class="nav-item text-capitalize" role="button">
+              <a class="nav-link">Men's Fashion</a>
+            </li>
+            <li class="nav-item text-capitalize" role="button">
+              <a class="nav-link">Electronics</a>
+            </li>
+          </ul>
+        </div>
+        <div class="company mb-3">
+          <h3 class="mat-h2">Brand</h3>
+          <mat-form-field>
+            <mat-label>Favorite Brand</mat-label>
+            <mat-select [(ngModel)]="selectedOption">
+              <mat-option value="all"> all </mat-option>
+              <mat-option *ngFor="let brand of uniqeBrands" [value]="brand">
+                {{ brand }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="price mb-4 o">
+          <h3 class="mat-h2">Price</h3>
+          <div>
+            <mat-slider
+              class="w-75"
+              id="slider"
+              name="slider"
+              min="149"
+              max="45000"
+              step="0.5"
+              value="1.5"
+            >
+              <input [(ngModel)]="priceRange" matSliderThumb />
+            </mat-slider>
+          </div>
+
+          <label for="customRange2  " class="form-label fw-bold text-main">
+            {{ priceRange | currency : "EG" }}</label
+          >
+        </div>
+
+        <h3 class="mat-h2">Rating</h3>
+        <p class="fw-medium text-muted text-capitalize mb-3">
+          the result includes min Rating to your chose
+        </p>
+        <div #stars class="rating d-flex align-items-center gap-2 mb-5">
+          <i
+            role="button"
+            *ngFor="let stat of [1, 2, 3, 4, 5]"
+            class="fa-solid fa-star fa-xl avctiveStart starts"
+            (click)="onStarClick(stat)"
+          ></i>
+        </div>
+        <div
+          (click)="resetAllOptions()"
+          class="trashIcon rounded-2 text-white position-relative text-center"
+          role="button"
+        >
+          <span class="fw-bolder"> Clear All</span>
+          <i id="i-cart" class="fa-solid fa-trash fa-lg"></i>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-9 col-md-8">
+      <div class="row mb-2 gy-4 justify-content-between align-items-center">
+        <div class="col-md-6 col-lg-4 col-xl-3 col-xxl-2">
+          <div class="mb-0 text-main fw-bold">
+            <span class=" ">{{ productLength }} </span>
+            <span>products found</span>
+          </div>
+        </div>
+        <div class="d-none col-xl-6 d-xl-block col-xxl-7">
+          <hr />
+        </div>
+        <div
+          class="col-md-6 col-lg-3 col-xl-3 col-xxl-3 sortby d-flex justify-content-sm-center gap-1 justify-content-xl-between align-items-center"
+        >
+          <p class="mb-0 text-main fw-bold">sortBy</p>
+          <select [(ngModel)]="sortBy" class="mb-0" name="" id="">
+            <option value="sort">name(A-Z)</option>
+            <option value="reverse">name(Z-A)</option>
+            <option value="lowest">price(Lowest)</option>
+            <option value="highest">price(Highest)</option>
+          </select>
+        </div>
+      </div>
+      <app-base-products
+        [allProducts]="allProducts"
+        [col_4]="true"
+        [pageSize]="pageSize"
+        [currentPage]="currentPage"
+        [totalItems]="totalItems"
+        [isLoding]="isLoding"
+        [inputSearch]="inputSearch"
+        [selectedCategoryName]="selectedCategoryName"
+        [selectedOption]="selectedOption"
+        [sortBy]="sortBy"
+        [ratingNumber]="ratingNumber"
+        [isClassApplied]="isClassApplied"
+        [priceRange]="priceRange"
+      ></app-base-products>
+    </div>
+  </div>
+</section>
+<div>
+  <pagination-controls
+    id="productPaginations"
+    (pageChange)="pageChanged($event)"
+    (pageBoundsCorrection)="pageChanged($event)"
+    [maxSize]="9"
+    [directionLinks]="true"
+    [autoHide]="true"
+    [responsive]="true"
+    previousLabel="Previous"
+    nextLabel="Next"
+    screenReaderPaginationLabel="Pagination"
+    screenReaderPageLabel="page"
+    screenReaderCurrentLabel="You're on page"
+  >
+  </pagination-controls>
+</div>
+<router-outlet></router-outlet>

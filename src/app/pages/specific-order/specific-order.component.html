@@ -1,0 +1,177 @@
+<section class="">
+  <div class="info-allordersUser mb-5 specific-orders rounded-3 p-5">
+    <div class="row">
+      <h2 class="text-capitalize text-main">
+        order id: <span class="text-muted"> #{{ allordersUser.id }}</span>
+      </h2>
+      <div class="col-lg-7 col-md-7">
+        <h4 class="text-capitalize">
+          your email :
+          <span class="text-muted">{{ allordersUser.user.email }}</span>
+        </h4>
+        <h4 class="text-capitalize">
+          your phone :
+          <span class="text-muted">{{ allordersUser.user.phone }}</span>
+        </h4>
+
+        <div class="isDelivered">
+          <h4 class="text-capitalize">
+            created At:
+            <span class="text-muted">
+              {{ allordersUser.createdAt | date }}
+            </span>
+          </h4>
+          <h4 class="text-capitalize">
+            isDelivered:
+            <i
+              *ngIf="allordersUser.isDelivered"
+              class="fa-solid fa-check text-main"
+            ></i>
+            <i
+              *ngIf="!allordersUser.isDelivered"
+              class="fa-solid fa-circle-xmark text-danger"
+            ></i>
+          </h4>
+        </div>
+        <div class="isPaid">
+          <h4 class="text-capitalize">
+            isPaid:
+            <i
+              *ngIf="!allordersUser.isDelivered"
+              class="fa-solid fa-circle-xmark text-danger"
+            ></i>
+            <i
+              *ngIf="allordersUser.isDelivered"
+              class="fa-solid fa-check text-main"
+            ></i>
+          </h4>
+        </div>
+        <h4 class="text-capitalize">data:{{ allordersUser.paidAt | date }}</h4>
+        <div class="payment text-capitalize">
+          <h4>
+            payment Type
+            <i
+              *ngIf="allordersUser.paymentMethodType === 'card'"
+              class="fa-brands fa-cc-visa fa-xl text-main"
+            ></i>
+            <i
+              *ngIf="allordersUser.paymentMethodType === 'cash'"
+              class="fa-solid fa-wallet fa-xl text-main"
+            ></i>
+          </h4>
+        </div>
+
+        <h4 class="text-capitalize">
+          last update:
+          <span class="text-muted"> {{ allordersUser.updatedAt | date }}</span>
+        </h4>
+      </div>
+      <div class="col-lg-5 col-md-5">
+        <h4 class="text-capitalize">
+          shipping Price:
+          <span class="text-muted">{{ allordersUser.shippingPrice }}</span>
+        </h4>
+        <h4 class="text-capitalize">
+          tax Price:
+          <span class="text-muted"> {{ allordersUser.taxPrice }}</span>
+        </h4>
+        <hr />
+
+        <h4 class="text-capitalize">
+          total allordersUser Price:
+          <span class="text-muted">
+            {{ allordersUser.totalOrderPrice | currency : "eg" }}
+          </span>
+        </h4>
+      </div>
+    </div>
+  </div>
+  <div
+    class="row justify-content-between align-items-start flex-wrap text-start"
+  >
+    <div class="table-responsive">
+      <table class="table table-bordered text-center">
+        <thead>
+          <tr>
+            <th>item</th>
+            <th>Product</th>
+            <th>price</th>
+            <th>brand</th>
+            <th>count</th>
+            <th>category</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="let order of allordersUser.cartItems; let i = index"
+            class="p-3"
+          >
+            <th class="col-1">{{ i + 1 }}</th>
+            <td class="col-2">
+              <figure
+                class="baseSlideItem rounded-3"
+                [routerLink]="['/details', order.product.id]"
+              >
+                <img
+                  class="w-100 rounded-4"
+                  [src]="order.product.imageCover"
+                  [alt]="order.product.title"
+                />
+              </figure>
+            </td>
+            <td class="col-3">
+              <h4 class="text-black text-capitalize">
+                <span class="text-muted">
+                  {{ order.price | currency : "EG" }}
+                </span>
+              </h4>
+            </td>
+            <td class="col-2">
+              <figure
+                class="baseSlideItem rounded-3"
+                [routerLink]="[
+                  '/specificBrand',
+                  order.product.brand._id,
+                  order.product.brand.name
+                ]"
+              >
+                <img
+                  class="w-100 rounded-4"
+                  [src]="order.product.brand.image"
+                  [alt]="order.product.brand.name"
+                />
+              </figure>
+            </td>
+            <td class="col-2">
+              <h4 class="text-black text-capitalize">
+                <span class="text-muted">
+                  {{ order.count }}
+                </span>
+              </h4>
+            </td>
+
+            <td>
+              <figure
+                class="baseSlideItem rounded-3"
+                [routerLink]="[
+                  '/specificCategory',
+                  order.product.category._id,
+                  order.product.category.name
+                ]"
+              >
+                <img
+                  class="w-100 rounded-4"
+                  [src]="order.product.category.image"
+                  [alt]="order.product.category.name"
+                />
+              </figure>
+              <h4 class="text-black text-capitalize">
+                {{ order.product.category.name }}
+              </h4>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
