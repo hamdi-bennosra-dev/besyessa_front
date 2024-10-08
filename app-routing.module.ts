@@ -29,7 +29,7 @@ const routes: Routes = [
   {
     path: '',
     component: LayoutblankComponent,
-    // canActivate: [authGuard],
+    canActivate: [authGuard],
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full', title: 'home' },
       { path: 'home', component: HomeComponent, title: 'home' },

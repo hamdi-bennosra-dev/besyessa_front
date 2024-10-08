@@ -60,6 +60,7 @@ import { AccountComponent } from './pages/settings-user/components/account/accou
 import { AddresseComponent } from './pages/settings-user/components/addresse/addresse.component';
 import { UserImagePipe } from './pipes/user-image.pipe';
 import { CommonModule } from '@angular/common';
+import { AuthInterceptor } from './core/interceptors/http-interceptor';
 
 @NgModule({
   declarations: [
@@ -127,18 +128,14 @@ import { CommonModule } from '@angular/common';
     CommonModule
   ],
   providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: HeadrTokenInterceptor,
-      multi: true,
-    },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: LodingInterceptor,
       multi: true,
     },
   ],
-  bootstrap: [AppComponent],
+  bootstrap: [AppComponent]
 })
 export class AppModule {
   // clone 

@@ -36,9 +36,8 @@ export class LoginComponent implements OnInit {
     private notifierService: NotifierService,
   ) {
     this.isLoading$ = this.authService.isLoading$;
-    if (this.authService.currentUserValue) {
-      this.router.navigate(['/']);
-    }
+    if(authService.currentUser$)
+      authService.logout();
   }
 
   ngOnInit(): void {      
@@ -85,7 +84,7 @@ export class LoginComponent implements OnInit {
             this.authService.getUserByUsername(username).subscribe(
               (user: User) => {
                 this.authService.setUserFromLocalStorage(user);
-                this.router.navigate([this.returnUrl]);
+                this.router.navigateByUrl('home');
               }
             );
           } else {
